@@ -1,0 +1,292 @@
+/* styles.css */
+
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e1e;
+    color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #c0c0c0; /* Light silver */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Subtle shadow for depth */
+}
+
+a {
+    color: #a8a8a8; /* Silver link color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffffff; /* Bright silver hover */
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, #3c3c3c, #2b2b2b); /* Metallic silver tones */
+    color: #ffffff;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+}
+
+/* Main Content */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+/* Movie List */
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.movie-item {
+    background-color: #252525;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.movie-item img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.movie-item h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.movie-item p {
+    margin: 0.3rem 0;
+}
+
+.movie-item a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(to bottom, #3a3a3a, #2a2a2a); /* Subtle silver gradient */
+    color: #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.movie-item a:hover {
+    background-color: #1e1e1e;;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+}
+
+.movie-item img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(192, 192, 192, 0.6); /* Silver glow */
+}
+
+/* Forms */
+form input, form select, form button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: none;
+    border-radius: 5px;
+}
+
+form input, form select {
+    width: 100%;
+    background-color: #333333;
+    color: #ffffff;
+}
+
+form button {
+    background-color: #ff6600;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #ffcc00;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.pagination a, .pagination span {
+    padding: 0.5rem 1rem;
+    background-color: #333333;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #ff6600;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #ff6600;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #ffcc00;
+}
+
+.btn-secondary {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #666666;
+}
+
+.header-top {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.welcome-message {
+    margin-right: auto;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.review-card {
+    background-color: #252525;
+    color: #f4f4f4;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: #ffcc00;
+}
+
+.review-card .rating {
+    font-weight: bold;
+    margin: 0.5rem 0;
+    color: #ff6600;
+}
+
+.review-card p {
+    margin: 0.5rem 0;
+}
+
+.review-card .timestamp {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.review-card .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    text-align: center;
+    background-color: #ff6600;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.review-card .btn:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.actions {
+    margin-top: 1rem;
+}
+
+.actions .btn {
+    margin-right: 0.5rem;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+    color: #fff;
+}
