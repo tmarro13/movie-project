@@ -1,0 +1,42 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h1>{{ movie.title }}</h1>
+<img src="{{ movie.image }}" alt="{{ movie.title }}" style="max-width: 300px; height: auto;">
+<p><strong>Release Year:</strong> {{ movie.release_year }}</p>
+<p><strong>Director:</strong> {{ movie.director }}</p>
+<p><strong>Avg Rating:</strong> {{ movie.average_rating|floatformat:2  }}</p>
+
+<h3>Tags:</h3>
+<ul>
+    {% for tag in movie.tags.all %}
+    <li>{{ tag.name }}</li>
+    {% empty %}
+    <li>No tags available</li>
+    {% endfor %}
+</ul>
+
+<h2>Reviews</h2>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/10:
+            <p>{{ review.review_text }}</p>
+        </li>
+    {% empty %}
+        <li>No reviews yet. Be the first to review this movie!</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+<h3>Add a Review</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ review_form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
+{% else %}
+<p><a href="{% url 'login' %}">Login</a> to add a review.</p>
+{% endif %}
+<a href="{% url 'movie_list' %}">Back to Movies</a>
+{% endblock %}

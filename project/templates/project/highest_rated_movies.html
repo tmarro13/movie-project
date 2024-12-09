@@ -1,0 +1,70 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Highest Rated Movies{% endblock %}
+
+{% block content %}
+    <h1>Highest Rated Movies</h1>
+
+    <form method="get" class="search-bar">
+        <!-- Search Field -->
+        <input type="text" name="query" placeholder="Search movies..." value="{{ query }}">
+    
+        <!-- Tag Dropdown -->
+        <select name="tag">
+            <option value="">All Tags</option>
+            {% for tag in tags %}
+                <option value="{{ tag.id }}" {% if tag.id|stringformat:"s" == selected_tag|stringformat:"s" %}selected{% endif %}>
+                    {{ tag.name }}
+                </option>
+            {% endfor %}
+        </select>
+    
+        <!-- Submit Button -->
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Movie List -->
+    <div class="movie-list">
+        {% for movie in movies %}
+            <div class="movie-item">
+                <h3>{{ movie.title }}</h3>
+                {% if movie.image %}
+                    <img src="{{ movie.image }}" alt="{{ movie.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/200x300?text=No+Image" alt="No Image">
+                {% endif %}
+                <p><strong>Avg Rating:</strong> {{ movie.average_rating|floatformat:2 }}</p>
+                <p><strong>Tags:</strong> 
+                    {% for tag in movie.tags.all %}
+                        {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        None
+                    {% endfor %}
+                </p>
+                <a href="{% url 'movie_detail' movie.id %}">View Details</a>
+            </div>
+        {% empty %}
+            <p>No movies found.</p>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+    
+        {% for num in pagination_range %}
+            {% if num == page_obj.number %}
+                <span class="current">{{ num }}</span>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+{% endblock %}
