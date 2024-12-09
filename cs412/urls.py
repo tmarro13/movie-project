@@ -22,9 +22,8 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('project/', include('project.urls')),  # Include URLs for the project app
-] + static(settings.STATIC_URL,
-           document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('project/', include('project.urls')),  # Include URLs for the project app 
+] 
 
 # Add static and media URL handling
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
