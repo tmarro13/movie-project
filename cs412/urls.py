@@ -21,8 +21,9 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path('project/', include('project.urls')),  # Include URLs for the project app 
+    path('admin/', admin.site.urls),
+    path('project/', include('project.urls')),  # Ensure this is correct
+    path('', include('project.urls')),         # Optional: Serve the project app at the root
 ] + static(settings.STATIC_URL,
            document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
