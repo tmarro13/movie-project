@@ -1,3 +1,10 @@
+# File: movie_views.py
+# Author: Tim Marro (tmarro@bu.edu)
+# Description: This file contains Django view functions for handling user
+# interactions with movies, reviews, and the TMDB API, including features
+# such as user authentication, review management, and movie data fetching.
+
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Review, Tag
 from .forms import ReviewForm
@@ -16,6 +23,7 @@ from django.contrib.auth import logout
 TMDB_API_KEY = "4e1f24cce8b996495e799b1b44d89e84"
 
 def signup(request):
+    """Handle user signup and redirect to the movie list upon successful registration."""
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -29,7 +37,8 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 def tmdb_search(request):
-    query = request.GET.get('query', '')
+    """Search for movies using the TMDB API and display results."""
+    query = request.GET.get('query', '') # Get the search query from the request
     results = []
     if query:
         url = f"https://api.themoviedb.org/3/search/movie"
@@ -43,8 +52,8 @@ def tmdb_search(request):
             results = data.get('results', [])
     return render(request, 'tmdb_search.html', {'query': query, 'results': results})
 
-# Home or movie list view
 def movie_list(request):
+    """Display a paginated list of movies with filtering and search capabilities."""
     query = request.GET.get("query", "")
     tag_id = request.GET.get("tag", "")
     
@@ -87,6 +96,7 @@ def movie_list(request):
     return render(request, "project/movie_list.html", {"movies": movies, "page_obj": page_obj, "pagination_range": pagination_range, "tags": tags, "selected_tag": tag_id, "query": query})
 
 def highest_rated_movies(request):
+    """Display a list of the highest-rated movies."""
     tag_id = request.GET.get("tag", "")
     query = request.GET.get("query", "")  # Get search term
 
@@ -128,6 +138,7 @@ def highest_rated_movies(request):
 
 @login_required
 def delete_review(request, pk):
+    """Allow users to delete their reviews."""
     review = get_object_or_404(Review, pk=pk, user=request.user)  # Ensure only the owner can delete
     if request.method == "POST":
         review.delete()
@@ -136,11 +147,13 @@ def delete_review(request, pk):
 
 @login_required
 def my_reviews(request):
+    """Display the logged-in user's reviews."""
     reviews = Review.objects.filter(user=request.user)
     return render(request, 'project/my_reviews.html', {'reviews': reviews})
 
 @login_required
 def edit_review(request, pk):
+    """Allow users to edit their reviews."""
     review = get_object_or_404(Review, pk=pk, user=request.user)  # Ensure the user can only edit their reviews
     if request.method == "POST":
         form = ReviewForm(request.POST, instance=review)
@@ -152,8 +165,9 @@ def edit_review(request, pk):
     
     return render(request, 'project/edit_review.html', {'form': form, 'review': review})
 
-# Movie detail view
+
 def movie_detail(request, pk):
+    """Display movie details along with associated reviews."""
     movie = get_object_or_404(Movie.objects.annotate(average_rating=Avg('reviews__rating')), id=pk)
     reviews = Review.objects.filter(movie=movie)
     
@@ -179,8 +193,6 @@ def movie_detail(request, pk):
     }
     return render(request, 'project/movie_detail.html', context)
 
-
-# Search for movies using TMDb API
 def fetch_director(movie_id, api_key):
     """Fetch the director of a movie from TMDB."""
     url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={api_key}&language=en-US"
@@ -198,6 +210,7 @@ import requests
 from project.models import Movie, Tag
 
 def add_movies_from_api():
+    """Fetch popular movies from TMDB API and populate the database."""
     api_key = "4e1f24cce8b996495e799b1b44d89e84"
     base_url = "https://api.themoviedb.org/3/movie/popular"
     genre_url = f"https://api.themoviedb.org/3/genre/movie/list?api_key={api_key}&language=en-US"
@@ -266,10 +279,12 @@ def add_movies_from_api():
             break
 
 def populate_movies(request):
+    """Populate the database with movies fetched from TMDB API."""
     add_movies_from_api()
     messages.success(request, 'Movies successfully populated from TMDB.')
     return redirect('movie_list')
 
 def review_list(request):
+    """Display a list of all reviews sorted by most recent."""
     reviews = Review.objects.all().order_by('-created_at')  # Sort reviews by most recent
     return render(request, 'project/review_list.html', {'reviews': reviews})

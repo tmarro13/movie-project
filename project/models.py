@@ -1,3 +1,9 @@
+# File: movie_models.py
+# Author: Tim Marro (tmarro@bu.edu)
+# Description: This file defines the database models for a Django project
+# that manages movies, including tags, reviews, user, and metadata such as
+# titles, directors, release years, and user-generated reviews.
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -7,6 +13,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)  # Name of the tag, must be unique
 
     def __str__(self):
+        """Return a string representation of the tag."""
         return self.name  # String representation of the tag, returns its name
 
 # A model representing a Movie
@@ -37,12 +44,12 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the review was created
 
     def clean_rating(self):
-        # Validates that the rating is in increments of 0.5
+        """Ensure the rating is in increments of 0.5."""
         rating = self.cleaned_data.get('rating')  # Access the rating value from cleaned_data
         if rating % 0.5 != 0:  # Check if rating is not divisible by 0.5
             raise ValidationError("Rating must be in increments of 0.5.")  # Raise an error if invalid
         return rating  # Return the validated rating
 
     def __str__(self):
-        # String representation of the review, includes movie title, user, and rating
+        """Return a formatted string representation of the review."""
         return f"{self.movie.title} - {self.user.username} ({self.rating})"

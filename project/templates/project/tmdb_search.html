@@ -11,6 +11,12 @@
             <input type="text" name="query" value="{{ query }}" placeholder="Search for a movie..." class="form-control w-50">
             <button type="submit" class="btn btn-primary ms-2">Search</button>
         </form>
+
+        <!-- 
+            Render a search form where users can input a query to search for movies on TMDB.
+            Includes an input field for the query and a search button.
+        -->
+
         <ul class="list-group mt-4">
             {% for movie in results %}
                 <li class="list-group-item">
@@ -23,5 +29,12 @@
                 <li class="list-group-item text-center">No results found.</li>
             {% endfor %}
         </ul>
+
+        <!-- 
+            Display a list of movie search results retrieved from TMDB.
+            - Each item shows the movie title and release date.
+            - If available, displays the movie poster.
+            - Shows a "No results found" message if there are no results.
+        -->
     </div>
 {% endblock %}

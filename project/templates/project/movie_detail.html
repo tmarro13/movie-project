@@ -5,7 +5,9 @@
 <img src="{{ movie.image }}" alt="{{ movie.title }}" style="max-width: 300px; height: auto;">
 <p><strong>Release Year:</strong> {{ movie.release_year }}</p>
 <p><strong>Director:</strong> {{ movie.director }}</p>
-<p><strong>Avg Rating:</strong> {{ movie.average_rating|floatformat:2  }}</p>
+<p><strong>Avg Rating:</strong> {{ movie.average_rating|floatformat:2 }}</p>
+
+<!-- Display the movie details, including title, poster, release year, director, and average rating. -->
 
 <h3>Tags:</h3>
 <ul>
@@ -15,6 +17,8 @@
     <li>No tags available</li>
     {% endfor %}
 </ul>
+
+<!-- Display all tags associated with the movie, or show a message if there are no tags. -->
 
 <h2>Reviews</h2>
 <ul>
@@ -28,6 +32,8 @@
     {% endfor %}
 </ul>
 
+<!-- List all reviews for the movie, or show a message if no reviews exist. -->
+
 {% if user.is_authenticated %}
 <h3>Add a Review</h3>
 <form method="post">
@@ -38,5 +44,11 @@
 {% else %}
 <p><a href="{% url 'login' %}">Login</a> to add a review.</p>
 {% endif %}
+
+<!-- Provide a form for authenticated users to add a review, or prompt unauthenticated users to log in. -->
+
 <a href="{% url 'movie_list' %}">Back to Movies</a>
+
+<!-- Link to navigate back to the movie list page. -->
+
 {% endblock %}
