@@ -10,6 +10,8 @@ from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout
 
 TMDB_API_KEY = "4e1f24cce8b996495e799b1b44d89e84"
 

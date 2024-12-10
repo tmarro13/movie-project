@@ -16,8 +16,9 @@ urlpatterns = [
     path('edit-review/<int:pk>/', views.edit_review, name='edit_review'),
     path('review/<int:pk>/delete/', views.delete_review, name='delete_review'),
     # Authentication URLs
+    # Authentication URLs
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view, name='logout'),
     path('signup/', views.signup, name='signup'),
     
 ] 
